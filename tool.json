@@ -1,0 +1,16 @@
+{
+  "id": "o13",
+  "slug": "image-compressor",
+  "name": "图片批量压缩转格式",
+  "version": "0.1.0",
+  "repo": "campfire-code/image-compressor",
+  "license": "MIT",
+  "ui": {
+    "layout": "b",
+    "palette": "teal"
+  },
+  "upstream": {
+    "repo": "GoogleChromeLabs/squoosh",
+    "license": "Apache-2.0"
+  }
+}
