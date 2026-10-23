@@ -1,4 +1,5 @@
 // 工具声明：图片批量压缩 / 转格式（在本机用浏览器引擎完成，不联网）。
+import { ImageDown as ImageDownAsIcon } from 'lucide-react';
 import type { BatchTool } from '../kit/types';
 import { MIME, fitSize, outputName, sizeChange, type OutFormat } from './core';
 
@@ -37,6 +38,7 @@ const tool: BatchTool = {
   id: 'o13',
   name: '图片批量压缩',
   tagline: '把一批图片压小、转成 JPG / PNG / WebP，可限制最长边，不联网、不上传。',
+  icon: ImageDownAsIcon,
   category: '办公提效',
   type: 'media',
   mode: 'batch',
