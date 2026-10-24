@@ -1,6 +1,9 @@
 // 工具声明：图片批量压缩 / 转格式（在本机用浏览器引擎完成，不联网）。
 import { ImageDown as ImageDownAsIcon } from 'lucide-react';
 import type { BatchTool } from '../kit/types';
+import { Empty } from './Empty';
+import { ResultBody } from './Result';
+import type { Stat } from './Result';
 import { MIME, fitSize, outputName, sizeChange, type OutFormat } from './core';
 
 const IMAGE_EXT = ['jpg', 'jpeg', 'png', 'webp', 'bmp', 'gif'];
@@ -28,7 +31,7 @@ export async function encode(bytes: Uint8Array, format: OutFormat, quality: numb
     g.drawImage(img, 0, 0, w, h);
     const blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, MIME[format], format === 'png' ? undefined : quality / 100));
     if (!blob) throw new Error('编码失败，图片可能太大');
-    return { data: new Uint8Array(await blob.arrayBuffer()), w, h };
+    return { data: new Uint8Array(await blob.arrayBuffer()), w, h, sw: img.naturalWidth, sh: img.naturalHeight };
   } finally {
     URL.revokeObjectURL(url);
   }
@@ -43,6 +46,8 @@ const tool: BatchTool = {
   type: 'media',
   mode: 'batch',
   resultView: 'list',
+  Empty,
+  ResultBody,
   concurrency: 3,
   accept: { label: '图片', extensions: IMAGE_EXT },
   params: [
@@ -57,11 +62,12 @@ const tool: BatchTool = {
     const format = ctx.params.format as OutFormat;
     const src = await ctx.readFile(item.path!);
     ctx.progress(0.3);
-    const { data, w, h } = await encode(src, format, Number(ctx.params.quality), Number(ctx.params.maxSide), String(ctx.params.bg));
+    const { data, w, h, sw, sh } = await encode(src, format, Number(ctx.params.quality), Number(ctx.params.maxSide), String(ctx.params.bg));
     ctx.progress(0.8);
     const outputPath = await ctx.join(ctx.outputDir, outputName(item.name, format));
     await ctx.writeFile(outputPath, data);
-    return { outputPath, preview: outputPath, summary: `${w}×${h} · ${sizeChange(src.length, data.length)}` };
+    const stat: Stat = { before: src.length, after: data.length, sw, sh, w, h, format };
+    return { outputPath, preview: outputPath, summary: `${w}×${h} · ${sizeChange(src.length, data.length)}`, data: stat };
   },
 };
 

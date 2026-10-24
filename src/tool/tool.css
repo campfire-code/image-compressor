@@ -1,0 +1,42 @@
+/* 图片批量压缩：左右拖动对比 + 大字省了多少；只用 kit.css 变量，适配亮暗色 */
+.ic-empty { display: grid; justify-items: center; gap: 14px; padding: 20px; max-width: 560px; margin: auto; text-align: center; font-size: 14px; }
+.ic-empty > svg { width: 100%; max-width: 480px; height: auto; }
+.ic-photo { fill: var(--chip); stroke: var(--line-strong); stroke-width: 1.5; }
+.ic-photo.big { fill: var(--primary-soft); stroke: var(--primary); }
+.ic-sun { fill: var(--warn); }
+.ic-hill { fill: var(--primary); opacity: .55; }
+.ic-arrow { fill: none; stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.ic-cap { fill: var(--primary); font-size: 14px; font-weight: 700; }
+.ic-size { fill: var(--muted); font-size: 14px; font-weight: 600; }
+.ic-size.big { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.ic-fmt rect { fill: var(--surface); stroke: var(--line-strong); }
+.ic-fmt text { fill: var(--ink); font-size: 13px; font-weight: 600; }
+.ic-knobs { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; width: 100%; max-width: 440px; text-align: left; }
+.ic-knobs li { display: grid; grid-template-columns: 20px 64px 1fr; align-items: center; gap: 8px; padding: 6px 12px; border-radius: min(var(--radius), 10px); background: var(--chip); }
+.ic-knobs svg { color: var(--primary); }
+.ic-knobs span { color: var(--muted); font-size: 13px; }
+.ic-title { margin: 4px 0 0; font-size: 20px; }
+.ic-act { margin: 0; display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
+
+.ic-res { display: grid; gap: 12px; width: 100%; min-width: 0; font-size: 14px; }
+.ic-cmp { position: relative; width: 100%; max-height: 52vh; border-radius: var(--radius-lg); overflow: hidden; background: var(--chip); user-select: none; margin: 0 auto; }
+.ic-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.ic-cmp > input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.ic-handle { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); pointer-events: none; transition: left 60ms linear; }
+.ic-handle::after { content: '‹ ›'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 4px 8px; border-radius: 999px; background: #fff; color: #222; font-weight: 700; font-size: 14px; box-shadow: 0 1px 4px rgba(0,0,0,.3); white-space: nowrap; }
+.ic-tag { position: absolute; top: 8px; padding: 2px 10px; border-radius: 999px; background: rgba(0,0,0,.62); color: #fff; font-size: 13px; pointer-events: none; }
+.ic-tag.l { left: 8px; } .ic-tag.r { right: 8px; }
+
+.ic-stat { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.ic-from { display: grid; gap: 1px; }
+.ic-from small { color: var(--muted); font-size: 13px; }
+.ic-from b { font-size: 22px; line-height: 1.1; color: var(--muted); }
+.ic-from span { color: var(--muted); font-size: 13px; }
+.ic-from.now b { color: var(--ink); }
+.ic-to-arrow { color: var(--primary); flex: none; }
+.ic-save { margin-left: auto; display: grid; justify-items: end; padding: 4px 14px; border-radius: var(--radius-lg); background: var(--ok-soft); color: var(--ok); }
+.ic-save b { font-size: 34px; line-height: 1.1; font-weight: 800; letter-spacing: -.02em; }
+.ic-save small { font-size: 13px; }
+.ic-save.bad { background: var(--warn-soft); color: var(--warn); }
+.ic-bar { height: 8px; border-radius: 999px; background: var(--chip); overflow: hidden; }
+.ic-bar i { display: block; height: 100%; border-radius: 999px; background: var(--primary); transition: width 200ms ease; }
